@@ -1,0 +1,81 @@
+#include "Text.h"
+#include <iostream>
+
+Text::Text(SDL_Renderer* rend, TTF_Font* customFont, SDL_Color customColor) 
+{
+    textTexture = NULL;
+    width = -1;
+    height = -1;
+    x = -1;
+    y = -1;
+
+    font = customFont;
+    color = customColor;
+    renderer = rend;
+}
+
+Text::~Text() 
+{
+    free();
+}
+
+void Text::free() 
+{
+    //Free texture if it exists
+    if (textTexture != NULL)
+    {
+        SDL_DestroyTexture(textTexture);
+        textTexture = NULL;
+        width = -1;
+        height = -1;
+    }
+}
+
+
+void Text::changeText(std::string newText) 
+{
+
+    free();
+
+    SDL_Surface* textSurface = TTF_RenderUTF8_Solid(font, newText.c_str(), color);
+    if (textSurface != NULL) 
+    {
+        textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+        if (textTexture == NULL) 
+        {
+            std::cout << "SOMETHING WENT WRONG IN Text::changeText \n";
+        }
+
+        width = textSurface->w;
+        height = textSurface->h;
+
+        SDL_FreeSurface(textSurface);
+    }
+    else 
+    {
+        std::cout << "textSurface is null \n";
+    }
+
+}
+
+void Text::setXY(int newx, int newy) 
+{
+    x = newx;
+    y = newy;
+}
+
+void Text::render(int posx, int posy) 
+{
+    rect = { posx, posy, width, height };
+    SDL_RenderCopyEx(renderer, textTexture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
+}
+
+int Text::getHeight() 
+{
+    return height;
+}
+
+int Text::getWidth() 
+{
+    return width;
+}
