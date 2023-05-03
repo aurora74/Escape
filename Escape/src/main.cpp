@@ -845,6 +845,7 @@ int main(int argc, char* argv[])
         timerTextRTA.render((WINDOW_WIDTH - timerText.getWidth()) / 2, 10);
         timerText.render((WINDOW_WIDTH - timerText.getWidth()) / 2, timerTextRTA.getHeight() + 10);
 
+        //test git
         if (gameComplete) 
         {
             levelBeatenText.render((WINDOW_WIDTH - levelBeatenText.getWidth()) / 2, ((WINDOW_HEIGHT - levelBeatenText.getHeight()) / 2) - 200);
