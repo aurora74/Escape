@@ -298,7 +298,7 @@ std::vector<Tile> loadLevel(std::string filename)
 
             if (map.fail()) 
             {
-                std:: cout << "Unable to load map 2.";
+                // std:: cout << "Unable to load map 2.";
             }
 
             if (type == EMPTY_TILE) 
